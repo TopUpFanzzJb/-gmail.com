@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orderkuota Web Report</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #eef1f5;
+  animation: fadeIn 0.6s ease;
+}
+
+/* ANIMASI */
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* HEADER */
+.header {
+  background: linear-gradient(135deg, #0f9d8a, #0a7f6f);
+  color: white;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.menu {
+  font-size: 22px;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+/* CARD */
+.container {
+  padding: 15px;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+  animation: slideUp 0.5s ease;
+}
+
+.transaksi {
+  font-size: 17px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+/* ROW */
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.label {
+  color: #666;
+  font-weight: 600;
+}
+
+.value {
+  color: #222;
+  text-align: right;
+  max-width: 55%;
+  word-break: break-word;
+}
+
+/* RADIO */
+.radio-group {
+  margin-top: 15px;
+}
+
+.radio {
+  display: flex;
+  align-items: center;
+  margin: 6px 0;
+  font-size: 14px;
+}
+
+.radio input {
+  margin-right: 10px;
+  accent-color: #0f9d8a;
+}
+
+/* BUTTON */
+.buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  flex: 1;
+  padding: 13px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ripple effect */
+.btn::after {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: rgba(255,255,255,0.3);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+.btn:active::after {
+  transform: translate(-50%, -50%) scale(2);
+  opacity: 0;
+}
+
+.print {
+  background: linear-gradient(135deg, #1e88e5, #1565c0);
+}
+
+.back {
+  background: linear-gradient(135deg, #00acc1, #00838f);
+}
+
+/* MOBILE FULL FEEL */
+@media(max-width:600px){
+  body {
+    background: #eef1f5;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <div class="menu">☰</div>
+  Orderkuota Web Report
+</div>
+
+<div class="container">
+  <div class="card" id="struk">
+
+    <div class="transaksi">Transaksi #1124611990</div>
+
+    <div class="row"><div class="label">Jenis Produk</div><div class="value">SALDO GOJEK</div></div>
+    <div class="row"><div class="label">Provider</div><div class="value">Top Up Saldo DANA</div></div>
+    <div class="row"><div class="label">Voucher</div><div class="value">Dana 20.000</div></div>
+    <div class="row"><div class="label">No Handphone</div><div class="value">083163503917</div></div>
+    <div class="row"><div class="label">Harga</div><div class="value">Rp 20.200</div></div>
+    <div class="row"><div class="label">Tanggal Pembelian</div><div class="value">16/03/2026 20:27</div></div>
+    <div class="row"><div class="label">Tanggal Pembayaran</div><div class="value">16/03/2026 20:27</div></div>
+    <div class="row"><div class="label">Status Pembayaran</div><div class="value">Sukses</div></div>
+    <div class="row"><div class="label">Status Pengisian</div><div class="value">Sukses</div></div>
+    <div class="row"><div class="label">SN / Ref</div><div class="value">DNID SULXXXXX/20000/20260316101214</div></div>
+    <div class="row"><div class="label">Total Bayar</div><div class="value">0</div></div>
+
+    <div class="row"><div class="label">Ukuran Kertas</div><div></div></div>
+
+    <div class="radio-group">
+      <div class="radio">
+        <input type="radio" name="kertas" checked> Horizontal 1/4 Kertas A4
+      </div>
+      <div class="radio">
+        <input type="radio" name="kertas"> Vertikal (58/80mm)
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button class="btn print" onclick="printStruk()">Cetak Struk</button>
+      <button class="btn back" onclick="history.back()">Kembali</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function printStruk() {
+  let content = document.getElementById("struk").innerHTML;
+  let win = window.open('', '', 'height=700,width=400');
+  
+  win.document.write('<html><head><title>Cetak Struk</title>');
+  win.document.write('<style>body{font-family:Arial;padding:10px;} .row{display:flex;justify-content:space-between;margin:6px 0;font-size:12px;}</style>');
+  win.document.write('</head><body>');
+  win.document.write(content);
+  win.document.write('</body></html>');
+  
+  win.document.close();
+  win.print();
+}
+</script>
+
+</body>
+  </html>
